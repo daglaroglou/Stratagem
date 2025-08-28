@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class FindLoLPath {
+public class FindPaths {
 
-    public static String findLeagueInstallationPath() {
+    public static String getLeaguePath() {
         String clientPath = ProcessHandle.allProcesses()
                 .map(ProcessHandle::info)
                 .map(ProcessHandle.Info::command)

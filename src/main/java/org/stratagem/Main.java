@@ -1,8 +1,10 @@
 package org.stratagem;
 
+import org.stratagem.LCU.FindPaths;
 import org.stratagem.cfg.Config;
 import org.stratagem.cfg.ReadConfig;
 import org.stratagem.utils.Colors;
+import org.stratagem.utils.ProcessUtils;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,6 +27,31 @@ public class Main {
             Colors.println("[+] Configuration loaded successfully", Colors.GREEN);
         } else {
             Colors.println("[x] Failed to load configuration", Colors.RED);
+        }
+        if (ProcessUtils.isProcessRunning("LeagueClient.exe")) {
+            Colors.println("[+] League of Legends client is running", Colors.GREEN);
+        } else {
+            Colors.println("[-] Attempting to run League of Legends client...", Colors.YELLOW);
+            String riotpath = FindPaths.getRiotClientPath();
+            if (riotpath != null && !riotpath.isEmpty()) {
+                String runCommand = riotpath + " --launch-product=league_of_legends --launch-patchline=live";
+                ProcessUtils.startProcess(runCommand);
+                while (!ProcessUtils.isProcessRunning("LeagueClient.exe")) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
+                boolean clientStarted = true;
+                if (clientStarted) {
+                    Colors.println("[+] League of Legends client started successfully", Colors.GREEN);
+                } else {
+                    Colors.println("[x] League of Legends client failed to start", Colors.RED);
+                }
+            } else {
+                Colors.println("[x] Failed to find Riot Client path", Colors.RED);
+            }
         }
     }
 }

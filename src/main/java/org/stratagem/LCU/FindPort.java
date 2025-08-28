@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class FindPort {
     public static String findPort() {
-        String installPath = FindLoLPath.findLeagueInstallationPath();
+        String installPath = FindPaths.getLeaguePath();
         if (installPath == null) return null;
         String lockfilePath = installPath + "/lockfile";
         try (BufferedReader lockfile = new BufferedReader(new FileReader(lockfilePath))) {

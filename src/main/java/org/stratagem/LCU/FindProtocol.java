@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class FindProtocol {
     public static String findProtocol() {
-        String installPath = FindLoLPath.findLeagueInstallationPath();
+        String installPath = FindPaths.getLeaguePath();
         if (installPath == null) return null;
         String lockfilePath = installPath + "/lockfile";
         try (BufferedReader lockfile = new BufferedReader(new FileReader(lockfilePath))) {

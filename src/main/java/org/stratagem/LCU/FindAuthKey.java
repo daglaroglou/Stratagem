@@ -8,7 +8,7 @@ import java.util.Base64;
 public class FindAuthKey {
     public static String findAuthKey() {
         try (BufferedReader lockfile = new BufferedReader(
-                new FileReader(FindLoLPath.findLeagueInstallationPath() + "/lockfile"))) {
+                new FileReader(FindPaths.getLeaguePath() + "/lockfile"))) {
             String[] parts = lockfile.readLine().split(":");
             String password = parts[3];
             String combination = "riot:" + password;
